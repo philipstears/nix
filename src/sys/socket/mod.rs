@@ -1221,6 +1221,7 @@ pub fn recvmmsg<'a, I>(
 
     Ok(output
         .into_iter()
+        .take(ret as usize)
         .zip(addresses.iter().map(|addr| unsafe{addr.assume_init()}))
         .zip(results.into_iter())
         .map(|((mmsghdr, address), (msg_controllen, cmsg_buffer))| {
